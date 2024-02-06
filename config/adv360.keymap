@@ -20,22 +20,30 @@
 
 / {
   behaviors {
-    #include "macros.dtsi"
+      #include "macros.dtsi"
+      #include "version.dtsi"
+      #ifndef VERSION_MACRO
+      macro_ver: macro_ver {
+        compatible = "zmk,behavior-macro";
+        label = "macro_version";
+        #binding-cells = <0>;
+        bindings = <&kp RET>;
+      };
+      #endif
 
-    hm: homerow_mods {
-        compatible = "zmk,behavior-hold-tap";
-        label = "HOMEROW_MODS";
-        #binding-cells = <2>;
-        tapping-term-ms = <200>;
-        quick_tap_ms = <175>;
-        flavor = "tap-preferred";
-        bindings = <&kp>, <&kp>;
+      hm: homerow_mods {
+          compatible = "zmk,behavior-hold-tap";
+          label = "HOMEROW_MODS";
+          #binding-cells = <2>;
+          tapping-term-ms = <200>;
+          quick_tap_ms = <175>;
+          flavor = "tap-preferred";
+          bindings = <&kp>, <&kp>;
     };
   };
 
     keymap {
         compatible = "zmk,keymap";
-
 
         default_layer {
             bindings = <
@@ -60,7 +68,7 @@
         layer_fn {
             bindings = <
  &kp F1     &kp F2  &kp F3  &kp F4  &kp F5  &kp F6        &tog 1                                                                            &mo 3                  &kp F7    &kp F8     &kp F9    &kp F10     &kp F11                &kp F12
- &kp TAB    &trans  &trans  &trans  &trans  &vim_bracket  &trans                                                                      	  	&kp C_BRIGHTNESS_INC   &trans    &trans     &trans    &trans      &macro_HTMLparagraph   &trans
+ &kp TAB    &trans  &trans  &trans  &trans  &vim_bracket  &trans                                                                            &kp C_BRIGHTNESS_INC   &trans    &trans     &trans    &trans      &macro_HTMLparagraph   &trans
  &kp ESC    &trans  &trans  &trans  &trans  &trans        &none         &kp LGUI          &kp LALT   &none   &none  &kp RALT    &kp RGUI    &kp C_BRIGHTNESS_DEC   &kp LEFT  &kp DOWN   &kp UP    &kp RIGHT   &trans                 &macro_parenquotes
  &kp LSHFT  &trans  &trans  &trans  &trans  &trans        &none         &none             &kp HOME   &none   &none  &kp PG_UP   &none       &none                  &trans    &trans     &trans    &trans      &trans                 &kp RSHFT
  &trans     &trans  &trans  &trans  &trans                &kp SPACE     &kp LEFT_CONTROL  &kp END                   &kp PG_DN   &kp ENTER   &kp SPACE                        &trans     &trans    &tab_left   &tab_right             &trans
